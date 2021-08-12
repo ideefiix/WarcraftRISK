@@ -2,7 +2,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import Col from "react-bootstrap/Col"
 import { Container } from 'react-bootstrap';
-import Inventory from './Pages/Inventory/Inventory';
 import Login from './Pages/Login/Login.js'
 import logo from './logo.svg';
 import NavigationBar from './NavigationBar';
@@ -13,6 +12,7 @@ import Territory from './Pages/Territory/Territory';
 import Image from 'react-bootstrap/Image'
 import Report from './Pages/Report/Report';
 import Store from './Pages/Store/Store';
+import Profile from './Pages/Profile/Profile';
 
 function App() {
   //CHANGE TO FALSE LATER
@@ -44,6 +44,7 @@ function App() {
           
           <Route exact path="/store" render={() => <Store/>} />
 
+          <Route exact path="/profile" render={() => <Profile/>} />
         </Switch>
       </Container>
       <link

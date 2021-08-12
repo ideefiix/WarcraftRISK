@@ -17,7 +17,7 @@ const NavigationBar = (props) => {
                         <Link className="nav-link" to="/territory" >Område</Link>
                         <Link className="nav-link" to="/report" >Rapport</Link>
                         <Link className="nav-link" to="/store" >Affär</Link>
-                        <Link className="nav-link pl-3" to="" >Profil</Link>
+                        <Link className="nav-link pl-3" to="/profile" >Profil</Link>
                         <Link className="nav-link" to="" >Rank</Link>
 
                         <Link className="nav-link" to="/login" >Logga ut</Link>
