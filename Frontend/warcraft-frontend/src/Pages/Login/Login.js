@@ -19,9 +19,8 @@ const Login = () => {
         } */
     }
     return (
-        <Row className="containerLogin" >
-            <Col xs={8} md={5} lg={4} className="mx-auto my-auto">
-            <Card className=" ">
+        <div className="d-flex justify-content-center containerLogin">
+            <Card className="loginBox">
                 <Card.Body>
                     <Card.Title>Logga in</Card.Title>
                     <Row>
@@ -46,9 +45,9 @@ const Login = () => {
                     </Row>
                 </Card.Body>
             </Card>
-            </Col>
+        </div>
             
-        </Row>
+           
     )
 }
 

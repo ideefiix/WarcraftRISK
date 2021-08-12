@@ -16,7 +16,7 @@ import Profile from './Pages/Profile/Profile';
 
 function App() {
   //CHANGE TO FALSE LATER
-  const [loggedIn, setloggedIn] = useState(true)
+  const [loggedIn, setloggedIn] = useState(false)
   return (
     <div>
       <Container>
