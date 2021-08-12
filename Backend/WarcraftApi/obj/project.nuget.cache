@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8Kq7cS14aw2TnywoFQD+T1lyJuKWRP05sjogtMe2h4FBG8Eki5VoyhfA+L0s661TQtpkuwPQdYauNwgsI2i+6Q==",
+  "dgSpecHash": "zo0TKm7otukqrxwVsnMgGXDJjEn6ZDiTBZZ0h3QUaOyyg+B0yzfZE/I0mmsgtZAGlMjly7Fn1ms8MJjtwMwyZg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\flind\\Desktop\\.net\\WarcraftRISK\\WarcraftApi\\WarcraftApi.csproj",
+  "projectFilePath": "C:\\Users\\flind\\Desktop\\Github repos\\WarcraftRISK\\Backend\\WarcraftApi\\WarcraftApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\flind\\.nuget\\packages\\fluent.net\\1.0.52\\fluent.net.1.0.52.nupkg.sha512",
     "C:\\Users\\flind\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

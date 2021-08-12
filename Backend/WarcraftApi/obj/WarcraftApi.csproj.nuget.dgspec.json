@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\flind\\Desktop\\.net\\WarcraftRISK\\WarcraftApi\\WarcraftApi.csproj": {}
+    "C:\\Users\\flind\\Desktop\\Github repos\\WarcraftRISK\\Backend\\WarcraftApi\\WarcraftApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\flind\\Desktop\\.net\\WarcraftRISK\\WarcraftApi\\WarcraftApi.csproj": {
+    "C:\\Users\\flind\\Desktop\\Github repos\\WarcraftRISK\\Backend\\WarcraftApi\\WarcraftApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\flind\\Desktop\\.net\\WarcraftRISK\\WarcraftApi\\WarcraftApi.csproj",
+        "projectUniqueName": "C:\\Users\\flind\\Desktop\\Github repos\\WarcraftRISK\\Backend\\WarcraftApi\\WarcraftApi.csproj",
         "projectName": "WarcraftApi",
-        "projectPath": "C:\\Users\\flind\\Desktop\\.net\\WarcraftRISK\\WarcraftApi\\WarcraftApi.csproj",
+        "projectPath": "C:\\Users\\flind\\Desktop\\Github repos\\WarcraftRISK\\Backend\\WarcraftApi\\WarcraftApi.csproj",
         "packagesPath": "C:\\Users\\flind\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\flind\\Desktop\\.net\\WarcraftRISK\\WarcraftApi\\obj\\",
+        "outputPath": "C:\\Users\\flind\\Desktop\\Github repos\\WarcraftRISK\\Backend\\WarcraftApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\flind\\AppData\\Roaming\\NuGet\\NuGet.Config",
