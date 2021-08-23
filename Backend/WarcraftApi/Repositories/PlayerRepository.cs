@@ -1,21 +1,40 @@
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using WarcraftApi.Data;
 using WarcraftApi.Entities;
 using WarcraftApi.Repositories.Interfaces;
 
 namespace WarcraftApi.Repositories
 {
-    public class PlayerRepository : IplayerRepository
+    public class PlayerRepository : IPlayerRepository
     {
-        public Player AddPlayer(Player p)
+        private readonly DbContext _context; 
+
+        public PlayerRepository(DbContext context){
+            _context = context;
+        }
+        
+        public Player CreatePlayer(PlayerDTO p)
         {
             throw new System.NotImplementedException();
         }
 
-        public List<Player> getPlayers(){
-            return null;
+        public Player[] GetAllPlayers()
+        {
+            throw new System.NotImplementedException();
         }
 
-        public Player RemovePlayer(Player p)
+        public Player GetPlayer(PlayerDTO p)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Player RemovePlayer(PlayerDTO p)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Player UpdatePlayer(PlayerDTO p)
         {
             throw new System.NotImplementedException();
         }

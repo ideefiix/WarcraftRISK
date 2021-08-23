@@ -6,7 +6,7 @@ namespace WarcraftApi.RequestObject
     {
         public int reinforcerId {get; set;}
         
-        public int minions {get; set;}
+        public int Soldiers {get; set;}
 
     }
 }

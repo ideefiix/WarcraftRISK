@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -13,12 +14,13 @@ namespace WarcraftApi.Controllers
 {
 
     [ApiController]
-    [Route("/api/player")]
+    [Authorize]
+    [Route("/player")]
     public class PlayerController : Controller
     {
 
         private readonly DBcontext _context;
-        
+
         public PlayerController(DBcontext context)
         {
             _context = context;
@@ -43,16 +45,21 @@ namespace WarcraftApi.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> createPlayer([FromBody] PlayerRequest playerReq)
         {
             var newPlayer = new Player
             {
                 Name = playerReq.Name,
+                Password = playerReq.Password,
                 Income = playerReq.Income,
                 Cash = playerReq.Cash,
-                Minions = playerReq.Minions,
-                Spawner = playerReq.Spawner,
-                Score = playerReq.Score
+                Soldiers = playerReq.Soldiers,
+                SoldierIncome = playerReq.SoldierIncome,
+                Score = playerReq.Score,
+                ownedTerritories = playerReq.ownedTerritories,
+                spiesTotal = playerReq.spiesTotal,
+                spiesAvailable = playerReq.spiesAvailable
             };
 
             await _context.Players.AddAsync(newPlayer);
@@ -75,6 +82,7 @@ namespace WarcraftApi.Controllers
 
         }
 
+        // Updates everything except Name and Password
         [HttpPut("{id:int}")]
         public async Task<IActionResult> updatePlayer([FromRoute] int id, [FromBody] PlayerRequest playerreq)
         {
@@ -83,13 +91,14 @@ namespace WarcraftApi.Controllers
             {
                 return NotFound();
             }
-
-            p.Name = playerreq.Name;
             p.Income = playerreq.Income;
             p.Cash = playerreq.Cash;
-            p.Minions = playerreq.Minions;
-            p.Spawner = playerreq.Spawner;
+            p.Soldiers = playerreq.Soldiers;
+            p.SoldierIncome = playerreq.SoldierIncome;
             p.Score = playerreq.Score;
+            p.ownedTerritories = playerreq.ownedTerritories;
+            p.spiesTotal = playerreq.spiesTotal;
+            p.spiesAvailable = playerreq.spiesAvailable;
 
             await _context.SaveChangesAsync();
 
