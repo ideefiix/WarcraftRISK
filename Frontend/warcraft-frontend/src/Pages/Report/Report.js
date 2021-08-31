@@ -3,9 +3,11 @@ import '../Common.css'
 import React, { useState, useEffect } from 'react'
 import { Accordion, Button, Image, Row, Col } from 'react-bootstrap';
 import village1 from '../../Utilities/Images/villageLVL1.png'
+import map from '../../Utilities/Images/mapIcon.png'
 import Card from 'react-bootstrap/Card'
 import Figure from 'react-bootstrap/Figure'
 import FigureCaption from 'react-bootstrap/FigureCaption'
+import {ExpiryTimeFormatter} from '../../Utilities/TimeFormatter'
 import { getReportsForPlayer } from '../../AxiosRequest'
 import { ValidateRequest } from '../../Utilities/RequestHandler'
 
@@ -15,6 +17,7 @@ const Report = (props) => {
 
     useEffect(() => {
         fetchReports();
+        props.fetchPlayer();
     }, [])
 
     async function fetchReports() {
@@ -31,29 +34,31 @@ const Report = (props) => {
 
     }
 
-    function ExpiryTimeFormatter(timeStamp) {
-        let timeDiff = new Date(timeStamp).getTime() - new Date().getTime()//In ms
-        let MinutesTotal = Math.floor(timeDiff / (1000 * 60));
-
-        let hours = Math.floor(MinutesTotal / 60);
-        let minutes = (MinutesTotal % 60)
-        if (hours >= 1) {
-
-            return (`${hours} timmar ${minutes} minuter`)
-
-        } else {
-            return (`${minutes} minuter`)
-        }
-
-    }
-
     function GenerateReportItem(t) {
-        return (
+        if(t.territory == null){
+            return (
+                <Accordion className="mt-2" key={t.id} >
+                    <Accordion.Item eventKey="0">
+                        <Accordion.Header>
+                            <Figure className="mb-0">
+                                <Image src={map} height="31px" />
+                                <FigureCaption className="text-center"></FigureCaption>
+                                <FigureCaption className="text-center">NotFound</FigureCaption>
+                            </Figure>
+    
+                            <p className="text-margin">Inget land hittades</p>
+                            <p className="text-margin">Försvinner: {ExpiryTimeFormatter(t.expiryDate)}</p>
+                        </Accordion.Header>
+                    </Accordion.Item>
+                </Accordion>
+            )
+        }else{
+           return (
             <Accordion className="mt-2" key={t.id} >
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>
                         <Figure className="mb-0">
-                            <Image src={village1} width="60px" />
+                            <Image src={village1} height="31px" />
                             <FigureCaption className="text-center">By #{t.territory.id}</FigureCaption>
                         </Figure>
 
@@ -80,7 +85,9 @@ const Report = (props) => {
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-        )
+        ) 
+        }
+        
     }
     return (
         <div className="bg-light mt-3 pb-5 report-container">

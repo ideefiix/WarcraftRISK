@@ -11,8 +11,11 @@ import CardGroup from 'react-bootstrap/CardGroup'
 import Figure from 'react-bootstrap/Figure'
 import FigureCaption from 'react-bootstrap/FigureCaption'
 
-const Store = () => {
+const Store = (props) => {
 
+    useEffect(() => {
+        props.fetchPlayer();
+    }, [])
     return (
         <div className="bg-light mt-3 mb-2 pb-5">
             <h3 className="headerTextMargin">Affären</h3>

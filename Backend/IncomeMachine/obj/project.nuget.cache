@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "+ndKutUid/alsNUdU9hoileUUjVRNo7Ch0F/W3bC751QM9mf3kxDMUUyKWvQrP4VlcsFVyw0Z6iKCvvzYTVGnQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\flind\\Desktop\\Github repos\\WarcraftRISK\\Backend\\IncomeMachine\\IncomeMachine.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\flind\\.nuget\\packages\\npgsql\\5.0.7\\npgsql.5.0.7.nupkg.sha512",
+    "C:\\Users\\flind\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.6.0\\system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512"
+  ],
+  "logs": []
+}

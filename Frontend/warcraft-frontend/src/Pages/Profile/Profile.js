@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-const Profile = () => {
+const Profile = (props) => {
+
+    useEffect(() => {
+        props.fetchPlayer();
+    }, [])
+
     return (
         <div className="bg-light mt-3">
             <p>Profilsidan är inte klar</p>

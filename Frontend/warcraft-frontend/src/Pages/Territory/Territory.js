@@ -12,6 +12,7 @@ const Territory = (props) => {
 
     useEffect(() => {
         fetchTerritories();
+        props.fetchPlayer()
     }, [])
 
     async function fetchTerritories() {

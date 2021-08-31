@@ -39,7 +39,7 @@ namespace WarcraftApi.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> getTile([FromRoute] int id)
         {
-
+            
             Tile tile = await _context.Tiles.FirstOrDefaultAsync<Tile>((x => x.Id == id));
 
             if (tile == null) return NotFound();

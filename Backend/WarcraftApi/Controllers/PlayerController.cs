@@ -14,7 +14,7 @@ namespace WarcraftApi.Controllers
 {
 
     [ApiController]
-    [Authorize]
+    /* [Authorize] */
     [Route("/player")]
     public class PlayerController : Controller
     {
@@ -29,6 +29,8 @@ namespace WarcraftApi.Controllers
         [HttpGet]
         public async Task<IActionResult> getPlayers()
         {
+           await IncomeTicker.tryToIncomeTick(_context); 
+
             List<Player> players = await _context.Players.ToListAsync<Player>();
 
             return Ok(players);
@@ -36,6 +38,8 @@ namespace WarcraftApi.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> getPlayer([FromRoute] int id)
         {
+            await IncomeTicker.tryToIncomeTick(_context); 
+
             Player p = await _context.Players.FirstOrDefaultAsync<Player>((x => x.Id == id));
             if (p == null)
             {
@@ -57,9 +61,7 @@ namespace WarcraftApi.Controllers
                 Soldiers = playerReq.Soldiers,
                 SoldierIncome = playerReq.SoldierIncome,
                 Score = playerReq.Score,
-                ownedTerritories = playerReq.ownedTerritories,
-                spiesTotal = playerReq.spiesTotal,
-                spiesAvailable = playerReq.spiesAvailable
+                ownedTerritories = playerReq.ownedTerritories
             };
 
             await _context.Players.AddAsync(newPlayer);
@@ -86,6 +88,8 @@ namespace WarcraftApi.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> updatePlayer([FromRoute] int id, [FromBody] PlayerRequest playerreq)
         {
+            await IncomeTicker.tryToIncomeTick(_context); 
+            
             Player p = await _context.Players.FirstOrDefaultAsync<Player>((x => x.Id == id));
             if (p == null)
             {
@@ -97,8 +101,6 @@ namespace WarcraftApi.Controllers
             p.SoldierIncome = playerreq.SoldierIncome;
             p.Score = playerreq.Score;
             p.ownedTerritories = playerreq.ownedTerritories;
-            p.spiesTotal = playerreq.spiesTotal;
-            p.spiesAvailable = playerreq.spiesAvailable;
 
             await _context.SaveChangesAsync();
 

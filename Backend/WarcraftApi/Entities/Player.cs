@@ -24,12 +24,6 @@ namespace WarcraftApi.Entities
         public virtual int Score { get; set; }
         [Required]
         public virtual int ownedTerritories {get; set;}
-        [Required]
-        public virtual int spiesTotal {get; set;}
-        [Required]
-        public virtual int spiesAvailable {get; set;}
-
-
         
     }
 }

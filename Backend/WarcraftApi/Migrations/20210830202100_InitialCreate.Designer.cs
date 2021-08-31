@@ -10,7 +10,7 @@ using WarcraftApi.Context;
 namespace WarcraftApi.Migrations
 {
     [DbContext(typeof(DBcontext))]
-    [Migration("20210821173936_InitialCreate")]
+    [Migration("20210830202100_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,24 @@ namespace WarcraftApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            modelBuilder.Entity("WarcraftApi.Entities.IncomeTick", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("TickIntervall")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("lastIncomeTick")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IncomeTick");
+                });
 
             modelBuilder.Entity("WarcraftApi.Entities.Player", b =>
                 {
@@ -54,15 +72,29 @@ namespace WarcraftApi.Migrations
                     b.Property<int>("ownedTerritories")
                         .HasColumnType("integer");
 
-                    b.Property<int>("spiesAvailable")
-                        .HasColumnType("integer");
+                    b.HasKey("Id");
 
-                    b.Property<int>("spiesTotal")
+                    b.ToTable("Player");
+                });
+
+            modelBuilder.Entity("WarcraftApi.Entities.Scout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime?>("DoneScouting")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("OwnedById")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Player");
+                    b.HasIndex("OwnedById");
+
+                    b.ToTable("Scout");
                 });
 
             modelBuilder.Entity("WarcraftApi.Entities.SpyReport", b =>
@@ -80,6 +112,9 @@ namespace WarcraftApi.Migrations
 
                     b.Property<int?>("TerritoryId")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("expiryDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
@@ -99,9 +134,6 @@ namespace WarcraftApi.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("Conquered")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<int>("Defence")
                         .HasColumnType("integer");
 
@@ -119,6 +151,15 @@ namespace WarcraftApi.Migrations
                     b.HasIndex("PlayerId");
 
                     b.ToTable("Tile");
+                });
+
+            modelBuilder.Entity("WarcraftApi.Entities.Scout", b =>
+                {
+                    b.HasOne("WarcraftApi.Entities.Player", "OwnedBy")
+                        .WithMany()
+                        .HasForeignKey("OwnedById");
+
+                    b.Navigation("OwnedBy");
                 });
 
             modelBuilder.Entity("WarcraftApi.Entities.SpyReport", b =>

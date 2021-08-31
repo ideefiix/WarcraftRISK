@@ -9,6 +9,20 @@ namespace WarcraftApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "IncomeTick",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    lastIncomeTick = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    TickIntervall = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IncomeTick", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Player",
                 columns: table => new
                 {
@@ -21,13 +35,31 @@ namespace WarcraftApi.Migrations
                     Soldiers = table.Column<int>(type: "integer", nullable: false),
                     SoldierIncome = table.Column<int>(type: "integer", nullable: false),
                     Score = table.Column<int>(type: "integer", nullable: false),
-                    ownedTerritories = table.Column<int>(type: "integer", nullable: false),
-                    spiesTotal = table.Column<int>(type: "integer", nullable: false),
-                    spiesAvailable = table.Column<int>(type: "integer", nullable: false)
+                    ownedTerritories = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Player", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Scout",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    OwnedById = table.Column<int>(type: "integer", nullable: true),
+                    DoneScouting = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Scout", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Scout_Player_OwnedById",
+                        column: x => x.OwnedById,
+                        principalTable: "Player",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -39,8 +71,7 @@ namespace WarcraftApi.Migrations
                     PlayerId = table.Column<int>(type: "integer", nullable: false),
                     Defence = table.Column<int>(type: "integer", nullable: false),
                     WallLvl = table.Column<int>(type: "integer", nullable: false),
-                    VillageLvl = table.Column<int>(type: "integer", nullable: false),
-                    Conquered = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    VillageLvl = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,7 +92,8 @@ namespace WarcraftApi.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     TargetedPlayerId = table.Column<int>(type: "integer", nullable: true),
                     ActionPlayerId = table.Column<int>(type: "integer", nullable: true),
-                    TerritoryId = table.Column<int>(type: "integer", nullable: true)
+                    TerritoryId = table.Column<int>(type: "integer", nullable: true),
+                    expiryDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,6 +119,11 @@ namespace WarcraftApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Scout_OwnedById",
+                table: "Scout",
+                column: "OwnedById");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SpyReport_ActionPlayerId",
                 table: "SpyReport",
                 column: "ActionPlayerId");
@@ -109,6 +146,12 @@ namespace WarcraftApi.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "IncomeTick");
+
+            migrationBuilder.DropTable(
+                name: "Scout");
+
             migrationBuilder.DropTable(
                 name: "SpyReport");
 

@@ -19,6 +19,24 @@ namespace WarcraftApi.Migrations
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+            modelBuilder.Entity("WarcraftApi.Entities.IncomeTick", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("TickIntervall")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("lastIncomeTick")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IncomeTick");
+                });
+
             modelBuilder.Entity("WarcraftApi.Entities.Player", b =>
                 {
                     b.Property<int>("Id")
@@ -52,15 +70,29 @@ namespace WarcraftApi.Migrations
                     b.Property<int>("ownedTerritories")
                         .HasColumnType("integer");
 
-                    b.Property<int>("spiesAvailable")
-                        .HasColumnType("integer");
+                    b.HasKey("Id");
 
-                    b.Property<int>("spiesTotal")
+                    b.ToTable("Player");
+                });
+
+            modelBuilder.Entity("WarcraftApi.Entities.Scout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime?>("DoneScouting")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("OwnedById")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Player");
+                    b.HasIndex("OwnedById");
+
+                    b.ToTable("Scout");
                 });
 
             modelBuilder.Entity("WarcraftApi.Entities.SpyReport", b =>
@@ -117,6 +149,15 @@ namespace WarcraftApi.Migrations
                     b.HasIndex("PlayerId");
 
                     b.ToTable("Tile");
+                });
+
+            modelBuilder.Entity("WarcraftApi.Entities.Scout", b =>
+                {
+                    b.HasOne("WarcraftApi.Entities.Player", "OwnedBy")
+                        .WithMany()
+                        .HasForeignKey("OwnedById");
+
+                    b.Navigation("OwnedBy");
                 });
 
             modelBuilder.Entity("WarcraftApi.Entities.SpyReport", b =>

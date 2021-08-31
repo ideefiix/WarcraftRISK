@@ -1,0 +1,9 @@
+.scoutCard {
+    width: 175px;
+}
+
+.cardItem {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -15,8 +15,8 @@ namespace WarcraftApi.Data
             }
 
             var players = new Player[]{
-                new Player{Id=1,Name="Fille",Password="lol",Income=10,Cash=100,Soldiers=2,SoldierIncome=1,Score=0,ownedTerritories=3,spiesTotal=1,spiesAvailable=1},
-                new Player{Id=2,Name="Emil",Password="lol",Income=5,Cash=100,Soldiers=5,SoldierIncome=1,Score=0,ownedTerritories=0,spiesTotal=1,spiesAvailable=1}
+                new Player{Id=1,Name="Fille",Password="lol",Income=10,Cash=100,Soldiers=2,SoldierIncome=1,Score=0,ownedTerritories=3},
+                new Player{Id=2,Name="Emil",Password="lol",Income=5,Cash=100,Soldiers=5,SoldierIncome=1,Score=0,ownedTerritories=0}
             };
 
             foreach (Player p in players)
@@ -35,6 +35,25 @@ namespace WarcraftApi.Data
             foreach (Tile t in Tiles){
                 context.Tiles.Add(t);
             }
+
+            IncomeTick it = new IncomeTick{
+                Id = 1,
+                lastIncomeTick = DateTime.Now,
+                TickIntervall = 60000
+            };
+
+            var scouts = new Scout[]{
+                new Scout{OwnedBy=players[0],DoneScouting=null},
+                new Scout{OwnedBy=players[0],DoneScouting=null},
+                new Scout{OwnedBy=players[0],DoneScouting=null}
+            };
+
+            foreach (Scout s in scouts)
+            {
+                context.Scouts.Add(s);
+            }
+
+            context.IncomeTick.Add(it);
 
             context.SaveChanges();
 

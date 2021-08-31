@@ -10,7 +10,7 @@ axios.interceptors.request.use(function (config) {
 });
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
-
+// TOKEN
 export async function login(playerName, playerPassword) {
     try {
         const body = {
@@ -27,7 +27,7 @@ export async function login(playerName, playerPassword) {
         return e
     }
 }
-
+// PLAYER
 export async function getPlayer(playerID) {
     try {
         let response = await axios.get(`/player/${playerID}`)
@@ -37,7 +37,7 @@ export async function getPlayer(playerID) {
         return e
     }
 }
-
+// TERRITORY
 export async function getTerritoriesForPlayer(playerID) {
     try {
         let res = await axios.get(`/tile/owner/${playerID}`)
@@ -48,7 +48,28 @@ export async function getTerritoriesForPlayer(playerID) {
         return e
     }
 }
+// SCOUT
+export async function getScouts(playerID){
+    try {
+        let res = await axios.get(`/scout/get/${playerID}`);
+        return res;
+    }
+    catch (e){
+        return e
+    }
+}
 
+export async function sendScout(playerID) {
+    try {
+        let res = await axios.put(`/scout/send/${playerID}`);
+        return res;
+    }
+    catch (e){
+        return e
+    }
+}
+
+// REPORT
 export async function getReportsForPlayer(playerID) {
     try {
         let res = await axios.get(`/report/${playerID}`)

@@ -11,14 +11,25 @@ import Row from "react-bootstrap/Row"
 import Territory from './Pages/Territory/Territory';
 import Image from 'react-bootstrap/Image'
 import Report from './Pages/Report/Report';
+import Scout from './Pages/Scout/Scout'
 import Store from './Pages/Store/Store';
 import Profile from './Pages/Profile/Profile';
 import { ToastContainer, toast } from 'react-toastify';
+import { getPlayer } from './AxiosRequest.js'
 
 function App() {
- 
+
   const [loggedIn, setloggedIn] = useState(false)
-  const [player, setplayer] = useState({id: null, name: null})
+  const [player, setplayer] = useState({ id: null, name: null, cash: 0, soldiers: 0, spiesAvailable: 0, spiesTotal: 0, ownedTerritories: 0, score: 0 })
+
+  async function fetchPlayer() {
+    if (player.id !== null) {
+      console.log("Fetching player resources");
+      let res = await getPlayer(player.id);
+      setplayer(res.data)
+    }
+
+  }
   return (
     <div>
       <Container>
@@ -39,15 +50,17 @@ function App() {
         <Switch>
           {loggedIn ? <Redirect exact from="/" to="/territory" /> : <Redirect exact from="/" to="/login" />}
           {loggedIn ? <Redirect exact from="/login" to="/territory" /> : null}
-          <Route exact path="/login" render={() => <Login setloggedIn={setloggedIn} setplayer={setplayer}/>} />
+          <Route exact path="/login" render={() => <Login setloggedIn={setloggedIn} setplayer={setplayer} />} />
 
-          <Route exact path="/territory" render={() => <Territory player={player} />} />
+          <Route exact path="/territory" render={() => <Territory fetchPlayer={fetchPlayer} player={player} />} />
 
-          <Route exact path="/report" render={() => <Report player={player} />} />
-          
-          <Route exact path="/store" render={() => <Store/>} />
+          <Route exact path="/report" render={() => <Report fetchPlayer={fetchPlayer} player={player} />} />
 
-          <Route exact path="/profile" render={() => <Profile/>} />
+          <Route exact path="/store" render={() => <Store fetchPlayer={fetchPlayer} />} />
+
+          <Route exact path="/profile" render={() => <Profile fetchPlayer={fetchPlayer} />} />
+
+          <Route exact path="/scout" render={() => <Scout player={player}/>} />
         </Switch>
       </Container>
       <link
@@ -57,16 +70,16 @@ function App() {
         crossOrigin="anonymous"
       />
       <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
 
 
